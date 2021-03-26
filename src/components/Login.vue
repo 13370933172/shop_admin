@@ -85,8 +85,9 @@ export default {
 
         // axios.post(url, data).then(..).catch(..)
         axios.post('http://localhost:8888/api/private/v1/login', this.form).then(res => {
-          const { meta } = res.data
+          const { meta, data } = res.data
           if (meta.status === 200) {
+            localStorage.setItem('token', data.token)
             // 成功了
             // console.log(meta.msg)
             // 1. 默认提示效果
@@ -101,7 +102,7 @@ export default {
 
             // 跳转路由, 跳转到首页
             // this.$router.push('/index')
-            this.$router.push({ name: 'index' })
+            this.$router.push('/index')
           } else {
             // 失败了
             // console.log(meta.msg)

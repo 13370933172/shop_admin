@@ -6,7 +6,7 @@ import Index from './components/Index.vue'
 // 只要是基于vue的插件, 都需要先use一下, 才能用
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -23,4 +23,14 @@ export default new Router({
       component: Login
     }
   ]
+})
+
+export default router
+
+router.beforeEach((to, from, next) => {
+  if (localStorage.getItem('token') || to.path === '/login') {
+    next()
+  } else {
+    next('/login')
+  }
 })
